@@ -32,7 +32,7 @@ jobs:
         uses: google-github-actions/get-secretmanager-secrets@v2
         with:
           secrets: |
-            JWT_SECRET
+            JWT_SECRET: projects/binar-441015/secrets/JWT_SECRET
             DATABASE_URL
             IMAGEKIT_PUBLIC_KEY
             IMAGEKIT_PRIVATE_KEY
