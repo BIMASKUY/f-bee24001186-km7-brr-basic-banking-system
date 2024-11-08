@@ -22,14 +22,14 @@ jobs:
       - name: install dependencies
         run: npm i --frozen-lockfile
       
-      - name: Create .env file
+      - name: Create env.yaml file
         run: |
-          touch .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-          echo "IMAGEKIT_PUBLIC_KEY=${{ secrets.IMAGEKIT_PUBLIC_KEY }}" >> .env
-          echo "IMAGEKIT_PRIVATE_KEY=${{ secrets.IMAGEKIT_PRIVATE_KEY }}" >> .env
-          echo "IMAGEKIT_URL_ENDPOINT=${{ secrets.IMAGEKIT_URL_ENDPOINT }}" >> .env 
+          touch env.yaml
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> env.yaml
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> env.yaml
+          echo "IMAGEKIT_PUBLIC_KEY=${{ secrets.IMAGEKIT_PUBLIC_KEY }}" >> env.yaml
+          echo "IMAGEKIT_PRIVATE_KEY=${{ secrets.IMAGEKIT_PRIVATE_KEY }}" >> env.yaml
+          echo "IMAGEKIT_URL_ENDPOINT=${{ secrets.IMAGEKIT_URL_ENDPOINT }}" >> env.yaml 
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
