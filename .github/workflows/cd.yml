@@ -33,10 +33,10 @@ jobs:
         with:
           secrets: |
             JWT_SECRET: projects/binar-441015/secrets/JWT_SECRET
-            DATABASE_URL
-            IMAGEKIT_PUBLIC_KEY
-            IMAGEKIT_PRIVATE_KEY
-            IMAGEKIT_URL_ENDPOINT
+            DATABASE_URL: projects/binar-441015/secrets/DATABASE_URL
+            IMAGEKIT_PUBLIC_KEY: projects/binar-441015/secrets/IMAGEKIT_PUBLIC_KEY
+            IMAGEKIT_PRIVATE_KEY: projects/binar-441015/secrets/IMAGEKIT_PRIVATE_KEY
+            IMAGEKIT_URL_ENDPOINT: projects/binar-441015/secrets/IMAGEKIT_URL_ENDPOINT
 
       - name: Create .env file
         run: |
