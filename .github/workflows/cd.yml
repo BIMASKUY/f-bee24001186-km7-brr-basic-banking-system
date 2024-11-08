@@ -32,11 +32,11 @@ jobs:
         uses: google-github-actions/get-secretmanager-secrets@v1
         with:
           secrets: |
-            DATABASE_URL
-            JWT_SECRET
-            IMAGEKIT_PUBLIC_KEY
-            IMAGEKIT_PRIVATE_KEY
-            IMAGEKIT_URL_ENDPOINT
+            DATABASE_URL:DATABASE_URL
+            JWT_SECRET:JWT_SECRET
+            IMAGEKIT_PUBLIC_KEY:IMAGEKIT_PUBLIC_KEY
+            IMAGEKIT_PRIVATE_KEY:IMAGEKIT_PRIVATE_KEY
+            IMAGEKIT_URL_ENDPOINT:IMAGEKIT_URL_ENDPOINT
 
       - name: Create .env file
         run: |
