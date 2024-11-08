@@ -4,11 +4,17 @@
   "description": "api",
   "main": "./src/app.js",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "start": "node ./src/app.js",
     "dev": "nodemon ./src/app.js",
-    "swagger": "node ./swagger.js"
+    "postinstall": "prisma generate",
+    "prisma:deploy": "npx prisma migrate deploy",
+    "gcloud:deploy": "gcloud app deploy"
   },
   "jest": {
     "transform": {
@@ -31,6 +37,7 @@
   "dependencies": {
     "@prisma/client": "^5.21.1",
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "imagekit": "^5.2.0",

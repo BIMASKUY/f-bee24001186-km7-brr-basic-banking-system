@@ -17,7 +17,8 @@ export const formatArticle = (article, imageUrl) => {
   }
 }
 
-export const formatArticles = (articles, imageUrls) => {
+export const formatArticles = (articles, images) => {
+  const imageUrls = images.map(image => image.url)
   return articles.map((article, index) => formatArticle(article, imageUrls[index]))
 }
 

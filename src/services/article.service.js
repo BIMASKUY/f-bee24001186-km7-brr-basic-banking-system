@@ -2,7 +2,7 @@ import { prismaClient } from "../db/prisma.js"
 import imagekit from "../configs/imagekit.config.js"
 import { encodedFileToBase64, encodedFileName } from "../utils/article.util.js"
 
-export default new class AccountService {
+export default new class ArticleService {
   async getArticles() {
 	  return prismaClient.article.findMany({
 			include: {
@@ -10,6 +10,51 @@ export default new class AccountService {
 			}
 		})
   }
+
+	async getArticleById(articleId) {
+		return prismaClient.article.findUnique({
+			where: {
+				id: articleId
+			},
+			include: {
+				author: true
+			}
+		})
+	}
+
+	async updateArticleWithImage(request, reqImage, articleId, userId) {
+		await this.deleteImageByArticleId(articleId)
+		const image = await this.uploadImage(reqImage, userId)
+
+		return prismaClient.article.update({
+			where: {
+				id: articleId
+			},
+			data: {
+				title: request.title,
+				content: request.content,
+				imageId: image.fileId
+			},
+			include: {
+				author: true
+			}
+		})
+	}
+
+	async updateArticleWithoutImage(request, articleId) {
+		return prismaClient.article.update({
+			where: {
+				id: articleId
+			},
+			data: {
+				title: request.title,
+				content: request.content,
+			},
+			include: {
+				author: true
+			}
+		})
+	}
 
 	async uploadImage(image, userId) {
 		return imagekit.upload({
@@ -25,8 +70,9 @@ export default new class AccountService {
 		return imagekit.getFileDetails(imageId)
 	}
 
-	async deleteImageById(imageId) {
-		return imagekit.deleteFile(imageId)
+	async deleteImageByArticleId(articleId) {
+		const article = await this.getArticleById(articleId)
+		return imagekit.deleteFile(article.imageId)
 	}
 
 	async createArticle(request, imageId, userId) {
@@ -43,58 +89,12 @@ export default new class AccountService {
 		})
 	}
 
+	async deleteArticleById(articleId) {
+		await this.deleteImageByArticleId(articleId)
+		return prismaClient.article.delete({
+			where: {
+				id: articleId
+			}
+		})
+	}
 }
-
-// 	async createAccount(request, userId) {
-// 		return prismaClient.bankAccount.create({
-// 			data: {
-// 				bankName: request.bankName,
-// 				bankAccountNumber: request.bankAccountNumber,
-// 				userId
-// 			}
-// 		})
-// 	}
-	
-// 	async getAccountById(accountId, userId) {
-// 		return prismaClient.bankAccount.findUnique({
-// 			where: {
-// 				id: accountId,
-// 				userId
-// 			}
-// 		})
-// 	}
-	
-// 	async getAccountByIdForAdmin(accountId) {
-// 		return prismaClient.bankAccount.findUnique({
-// 			where: {
-// 				id: accountId
-// 			}
-// 		})
-// 	}
-
-// 	async withdrawAccount(accountId, amount) {
-// 		return prismaClient.bankAccount.update({
-// 			where: {
-// 				id: accountId
-// 			},
-// 			data: {
-// 				balance: {
-// 					decrement: amount
-// 				}
-// 			}
-// 		})
-// 	}
-
-// 	async depositAccount(id, amount) {
-// 		return prismaClient.bankAccount.update({
-// 			where: {
-// 				id
-// 			},
-// 			data: {
-// 				balance: {
-// 					increment: amount
-// 				}
-// 			}
-// 		})
-// 	}
-// }

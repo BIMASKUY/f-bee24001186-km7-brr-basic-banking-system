@@ -33,6 +33,10 @@
     {
       "name": "auth",
       "description": "CRUD mengenai autentikasi user"
+    },
+    {
+      "name": "article",
+      "description": "CRUD mengenai artikel yang memiliki gambar"
     }
   ],
   "paths": {
@@ -1302,6 +1306,420 @@
                     "message": {
                       "type": "string",
                       "example": "Email atau password salah"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles": {
+      "post": {
+        "summary": "Membuat artikel",
+        "tags": [
+          "article"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "content",
+                  "image"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Manfaat alpukat"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "Membantu menyehatkan jantung, kulit, dan pencernaan karena kaya serat, lemak sehat, dan antioksidan"
+                  },
+                  "image": {
+                    "format": "binary",
+                    "description": "Image file to upload"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil membuat artikel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil membuat artikel"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "example": "Manfaat alpukat"
+                        },
+                        "content": {
+                          "type": "string",
+                          "example": "Membantu menyehatkan jantung, kulit, dan pencernaan karena kaya serat, lemak sehat, dan antioksidan"
+                        },
+                        "imageUrl": {
+                          "type": "string",
+                          "example": "https://ik.imagekit.io/bimskuy/articles/1731014106912_9.jpg"
+                        },
+                        "author": {
+                          "type": "string",
+                          "example": "mughie"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error input user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Ukuran gambar harus kurang dari 2 MB"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Mendapatkan banyak artikel",
+        "tags": [
+          "article"
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan banyak artikel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan semua artikel"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string",
+                            "example": "Manfaat alpukat"
+                          },
+                          "content": {
+                            "type": "string",
+                            "example": "Membantu menyehatkan jantung, kulit, dan pencernaan karena kaya serat, lemak sehat, dan antioksidan"
+                          },
+                          "imageUrl": {
+                            "type": "string",
+                            "example": "https://ik.imagekit.io/bimskuy/articles/1731014106912_9.jpg?updatedAt=1731014113180"
+                          },
+                          "author": {
+                            "type": "string",
+                            "example": "mughie"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{id}": {
+      "get": {
+        "summary": "Mendapatkan artikel berdasarkan id artikel",
+        "tags": [
+          "article"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mendapatkan artikel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil mendapatkan artikel"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "example": "Manfaat alpukat"
+                        },
+                        "content": {
+                          "type": "string",
+                          "example": "Membantu menyehatkan jantung, kulit, dan pencernaan karena kaya serat, lemak sehat, dan antioksidan"
+                        },
+                        "imageUrl": {
+                          "type": "string",
+                          "example": "https://ik.imagekit.io/bimskuy/articles/1731014106912_9.jpg?updatedAt=1731014113180"
+                        },
+                        "author": {
+                          "type": "string",
+                          "example": "mughie"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Artikel tidak ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Artikel tidak ditemukan"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update artikel berdasarkan id artikel",
+        "tags": [
+          "article"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Manfaat alpukat baru"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "Manfaat baru yang diketahui..."
+                  },
+                  "image": {
+                    "format": "binary",
+                    "description": "Optional image file to update"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Berhasil update artikel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil memperbarui artikel"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "example": "Manfaat alpukat baru"
+                        },
+                        "content": {
+                          "type": "string",
+                          "example": "Manfaat baru yang diketahui..."
+                        },
+                        "imageUrl": {
+                          "type": "string",
+                          "example": "https://ik.imagekit.io/bimskuy/articles/1731014800831_9.png?updatedAt=1731014807502"
+                        },
+                        "author": {
+                          "type": "string",
+                          "example": "mughie"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Format file tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Format gambar yang diperbolehkan adalah .png, .jpeg, .jpg"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Menghapus artikel berdasarkan id artikel",
+        "tags": [
+          "article"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artikel berhasil dihapus",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil menghapus artikel"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Artikel tidak ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Artikel tidak ditemukan"
                     },
                     "data": {
                       "type": "object",
