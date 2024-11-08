@@ -8,8 +8,5 @@ runtime_config:
 manual_scaling:
   instances: 1
 
-includes:
-  - env.yaml
-
 beta_settings:
   cloud_sql_instances: binar-441015:asia-southeast2:binar-instance-sql
