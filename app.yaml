@@ -12,4 +12,4 @@ beta_settings:
   cloud_sql_instances: binar-441015:asia-southeast2:binar-instance-sql
 
 includes:
-  .env
+  - .env
